@@ -1,0 +1,14 @@
+# 下载产物（不要提交你下载的视频）
+*.mp4
+*.webm
+*.mkv
+*.part
+*.ytdl
+
+# 登录态 cookie（绝对不要提交，含个人隐私）
+*.cookies.txt
+douyin_cookies.txt
+cookies.txt
+
+# macOS
+.DS_Store
