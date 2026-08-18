@@ -1,5 +1,7 @@
 # cn-social-dl
 
+[English](README_EN.md)
+
 一个零配置、跨平台的通用视频下载器，基于 [yt-dlp](https://github.com/yt-dlp/yt-dlp)。
 一行命令下载抖音、小红书、B站、TikTok 等平台的视频，**无水印优先**。
 
