@@ -68,9 +68,18 @@ case "$URL" in
     ;;
 esac
 
-exec "$YTDLP" "${EXTRA[@]}" \
-  --socket-timeout 30 \
-  --no-check-certificates \
-  --no-playlist \
-  -o "$OUT/%(title).60s [%(id)s].%(ext)s" \
-  "$URL"
+if [[ ${#EXTRA[@]} -gt 0 ]]; then
+  exec "$YTDLP" "${EXTRA[@]}" \
+    --socket-timeout 30 \
+    --no-check-certificates \
+    --no-playlist \
+    -o "$OUT/%(title).60s [%(id)s].%(ext)s" \
+    "$URL"
+else
+  exec "$YTDLP" \
+    --socket-timeout 30 \
+    --no-check-certificates \
+    --no-playlist \
+    -o "$OUT/%(title).60s [%(id)s].%(ext)s" \
+    "$URL"
+fi
