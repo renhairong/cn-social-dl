@@ -3,15 +3,15 @@
 [English](README_EN.md)
 
 一个零配置、跨平台的通用视频下载器，基于 [yt-dlp](https://github.com/yt-dlp/yt-dlp)。
-一行命令下载抖音、小红书、B站、TikTok 等平台的视频，**无水印优先**。
+一行命令下载抖音、小红书、B站、TikTok、YouTube、X(Twitter) 等平台的视频，**无水印优先**。
 
 ## 特性
 
 - **抖音 / 小红书**：自动读取你本地**已登录浏览器**的登录态 cookie，**无需手动导出、无需第三方扩展**。
-- **B站 / TikTok / YouTube 等**：免 cookie，直接下载。
+- **B站 / TikTok / YouTube / X 等**：免 cookie，直接下载（基于 yt-dlp 原生支持，几乎覆盖所有主流平台）。
 - **无水印**：抖音默认排除带水印的下载地址，优先选无水印直链。
 - **链接自适应**：抖音搜索页（`?modal_id=`）、分享短链（`v.douyin.com`）、`/video/`、`/note/` 都自动归一化，随手粘就行。
-- **跨平台**：macOS / Linux / Windows，自动探测本地浏览器。
+- **跨平台**：macOS / Linux / Windows，自动探测本地浏览器；兼容 macOS 自带的 bash 3.2（无需升级 bash）。
 
 ## 安装
 
@@ -55,6 +55,12 @@ bash dl.sh "https://www.bilibili.com/video/BV1GJ411x7h7"
 
 # TikTok
 bash dl.sh "https://www.tiktok.com/@user/video/123456"
+
+# YouTube（公开视频免 cookie，含 Shorts）
+bash dl.sh "https://youtube.com/shorts/kkyaouUEmaU"
+
+# X / Twitter
+bash dl.sh "https://x.com/username/status/1234567890/video/1"
 ```
 
 ## 关于 cookie（重要）

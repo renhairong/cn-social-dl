@@ -3,17 +3,17 @@
 [![CI](https://github.com/renhairong/cn-social-dl/actions/workflows/ci.yml/badge.svg)](https://github.com/renhairong/cn-social-dl/actions/workflows/ci.yml)
 
 A zero-config, cross-platform video downloader for Chinese social platforms, built on [yt-dlp](https://github.com/yt-dlp/yt-dlp).
-Download videos from Douyin, Xiaohongshu, Bilibili, TikTok and more with **one command**, **watermark-free by default**.
+Download videos from Douyin, Xiaohongshu, Bilibili, TikTok, YouTube, X (Twitter) and more with **one command**, **watermark-free by default**.
 
 [中文文档](README.md)
 
 ## Features
 
 - **Douyin / Xiaohongshu**: automatically reads your **logged-in browser's** session cookies — no manual export, no third-party extensions.
-- **Bilibili / TikTok / YouTube** and more: download **without any cookies**.
+- **Bilibili / TikTok / YouTube / X** and more: download **without any cookies** (yt-dlp-native support covers nearly all major platforms).
 - **Watermark-free**: for Douyin it skips the watermarked `download_addr` and picks the clean playback URL first.
 - **URL normalization**: Douyin search pages (`?modal_id=`), short links (`v.douyin.com`), `/video/`, `/note/` are all normalized automatically — just paste any link.
-- **Cross-platform**: macOS / Linux / Windows, with automatic browser detection.
+- **Cross-platform**: macOS / Linux / Windows, with automatic browser detection. Compatible with the stock bash 3.2 shipped with macOS — no need to upgrade bash.
 
 ## Install
 
@@ -57,6 +57,12 @@ bash dl.sh "https://www.bilibili.com/video/BV1GJ411x7h7"
 
 # TikTok
 bash dl.sh "https://www.tiktok.com/@user/video/123456"
+
+# YouTube (public videos, no cookie — Shorts included)
+bash dl.sh "https://youtube.com/shorts/kkyaouUEmaU"
+
+# X / Twitter
+bash dl.sh "https://x.com/username/status/1234567890/video/1"
 ```
 
 ## About cookies (important)
