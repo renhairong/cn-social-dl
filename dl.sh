@@ -36,8 +36,8 @@ if [[ "$URL" == *kuaishou.com* || "$URL" == *v.kuaishou.com* ]]; then
   MAP="$("$PY" "$SCRIPT_DIR/kuaishou.py" "$URL" 2>/tmp/kuaishou.err)" || {
     echo "❌ 快手解析失败：" >&2
     sed 's/^/    /' /tmp/kuaishou.err >&2
-    echo "    公开视频通常可免登录；若提示需登录态，请把浏览器里快手 Cookie" >&2
-    echo "    （Application → Cookies 复制为字符串）写入 ~/.kuaishou_cookies.txt 后重试。" >&2
+    echo "    已自动尝试读取本地浏览器（Edge/Chrome）的快手登录态，仍失败。" >&2
+    echo "    请确认浏览器已登录快手；或把 Netscape 格式 cookie 放到 ~/.kuaishou_cookies.txt 后重试。" >&2
     exit 1
   }
   TITLE="$(printf '%s\n' "$MAP" | sed -n '1p')"
