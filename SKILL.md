@@ -1,6 +1,6 @@
 ---
 name: video-downloader
-description: 通用视频下载器，支持抖音/小红书/B站/快手/TikTok 等平台。抖音/小红书自动读取本地已登录浏览器 cookie（无需手动导出），B站/TikTok/快手（公开视频）免 cookie。基于 yt-dlp，无水印优先。快手由自带 kuaishou.py 解析 web 直链。
+description: 通用视频下载器，支持抖音/小红书/B站/快手/TikTok 等平台。抖音/小红书/快手自动读取本地已登录浏览器 cookie（无需手动导出），B站/TikTok 免 cookie。基于 yt-dlp，无水印优先。快手由自带 kuaishou.py 解析 web 直链。
 license: MIT
 ---
 
