@@ -42,10 +42,10 @@ BROWSERS = ("edge", "chrome", "chromium", "brave")
 
 
 def photo_id(url):
-    if "v.kuaishou.com" in url:
+    # 分享短链需先跟随重定向拿到真实页面（含 short-video/<photoId>），再提取
+    if "v.kuaishou.com" in url or "/f/" in url:
         url = _resolve(url)
     for pat in (r"/short-video/([A-Za-z0-9_\-]+)",
-                r"/f/([A-Za-z0-9_\-]+)",
                 r"[?&]photoId=([A-Za-z0-9_\-]+)"):
         m = re.search(pat, url)
         if m:
