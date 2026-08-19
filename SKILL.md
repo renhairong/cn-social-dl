@@ -30,7 +30,7 @@ bash dl.sh "视频链接" "/自定义/保存目录"
 | 平台 | 需要登录态？ | 说明 |
 |---|---|---|
 | B站 / TikTok / YouTube 等 | ❌ 不需要 | 免 cookie 直接下载 |
-| 快手（公开视频） | ❌ 不需要 | 由自带 `kuaishou.py` 解析 web 直链；个别视频若返回空，把浏览器快手 Cookie 写入 `~/.kuaishou_cookies.txt` |
+| 快手 | ✅ 需要（浏览器登录态自动读取） | 由自带 `kuaishou.py` 解析 web 直链；自动复用 Edge/Chrome 登录态过快控，无登录态时把 Cookie 写入 `~/.kuaishou_cookies.txt` |
 | 抖音 / 小红书 | ✅ 需要 | 自动读取本地已登录浏览器的登录态 |
 
 抖音 / 小红书的 cookie 获取（按优先级）：
