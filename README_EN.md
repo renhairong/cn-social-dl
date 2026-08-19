@@ -30,8 +30,7 @@
 - **Douyin / Xiaohongshu** — automatically reads your **logged-in browser's** session cookies; no manual export, no third-party extensions.
 - **Bilibili / TikTok / YouTube / X** and more — download **without any cookies** (yt-dlp-native support covers nearly all major platforms).
 - **Kuaishou** — not supported by yt-dlp natively, so the bundled `kuaishou.py` resolves the web play URL first; it reuses your local browser's (Edge / Chrome) logged-in session to pass the anti-bot check.
-- **Watermark-free** — for Douyin it skips the watermarked `download_addr` and picks the clean playback URL first.
-- **URL normalization** — Douyin search pages (`?modal_id=`), short links (`v.douyin.com`), `/video/`, `/note/` are all normalized automatically; just paste any link.
+- **Douyin extras: watermark-free + URL normalization** — skips the watermarked `download_addr` and prefers the clean play URL; normalizes search-page links (`?modal_id=`), short links (`v.douyin.com`), `/video/`, `/note/` automatically. Other platforms are parsed natively by yt-dlp, so they don't need these workarounds.
 - **Cross-platform & no extra deps** — macOS / Linux / Windows; no dependency beyond `yt-dlp` / `ffmpeg`; compatible with the stock bash 3.2 shipped with macOS — no need to upgrade bash.
 
 ## Install
