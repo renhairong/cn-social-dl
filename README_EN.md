@@ -28,8 +28,10 @@
 ## Features
 
 - **Douyin / Xiaohongshu** — automatically reads your **logged-in browser's** session cookies; no manual export, no third-party extensions.
-- **Bilibili / TikTok / YouTube / X** and more — download **without any cookies** (yt-dlp-native support covers nearly all major platforms).
+- **Bilibili / TikTok / X** and more — download **without any cookies** (yt-dlp-native support covers nearly all major platforms).
+- **YouTube** — reuses your logged-in browser (Edge / Chrome) session to bypass the bot check and get the highest-quality streams (public videos also need a session now).
 - **Kuaishou** — not supported by yt-dlp natively, so the bundled `kuaishou.py` resolves the web play URL first; it reuses your local browser's (Edge / Chrome) logged-in session to pass the anti-bot check.
+- **Best quality by default** — every platform downloads at the highest available resolution: Douyin / Xiaohongshu exclude the watermarked address and pick the best; everything else merges `bestvideo+bestaudio` for the sharpest picture + audio.
 - **Douyin extras: watermark-free + URL normalization** — skips the watermarked `download_addr` and prefers the clean play URL; normalizes search-page links (`?modal_id=`), short links (`v.douyin.com`), `/video/`, `/note/` automatically. Other platforms are parsed natively by yt-dlp, so they don't need these workarounds.
 - **Cross-platform & no extra deps** — macOS / Linux / Windows; no dependency beyond `yt-dlp` / `ffmpeg`; compatible with the stock bash 3.2 shipped with macOS — no need to upgrade bash.
 
@@ -104,7 +106,7 @@ dl "https://www.bilibili.com/video/BV1GJ411x7h7"
 # TikTok
 dl "https://www.tiktok.com/@user/video/123456"
 
-# YouTube (public videos, no cookie — Shorts included)
+# YouTube (incl. Shorts — reuses browser session to bypass the bot check and grab the best quality)
 dl "https://youtube.com/shorts/kkyaouUEmaU"
 
 # X / Twitter
@@ -120,14 +122,14 @@ dl "https://www.kuaishou.com/short-video/3xk6y9abcde"
 |---|---|---|
 | Douyin / Xiaohongshu | ✅ Yes | Reads your logged-in browser session automatically |
 | Kuaishou | ✅ Yes (browser session auto-detected) | Bundled `kuaishou.py` resolves the web URL; fall back to `~/.kuaishou_cookies.txt` if no browser session |
-| Bilibili / TikTok | ❌ No | Download without any cookies |
-| YouTube / X (Twitter) etc. | ❌ No | yt-dlp-native support covers nearly all major platforms |
+| YouTube | ✅ Yes (browser session auto-detected) | Bypasses the bot check and gets the best quality — public videos need a session too |
+| Bilibili / TikTok / X (Twitter) etc. | ❌ No | Download without any cookies (yt-dlp-native) |
 
 > ⚠️ **Not supported yet**: WeChat Channels (视频号) and Tencent Video (腾讯视频). The former uses a private protocol with mandatory login; the latter sits behind a paid DRM wall — neither can be solved via yt-dlp pass-through in the near term.
 
 ## About cookies (important)
 
-Douyin / Xiaohongshu / Kuaishou need a logged-in session; Bilibili / TikTok / YouTube / X need no cookies at all — they just work.
+Douyin / Xiaohongshu / Kuaishou / YouTube need a logged-in session; Bilibili / TikTok / X need no cookies at all — they just work.
 
 For Douyin / Xiaohongshu, cookies are resolved automatically with this priority:
 

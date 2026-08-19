@@ -28,8 +28,10 @@
 ## 特性
 
 - **抖音 / 小红书** — 自动读取本地**已登录浏览器**的登录态 cookie，**无需手动导出、无需第三方扩展**。
-- **B站 / TikTok / YouTube / X 等** — 免 cookie，直接下载（基于 yt-dlp 原生支持，几乎覆盖所有主流平台）。
+- **B站 / TikTok / X 等** — 免 cookie，直接下载（基于 yt-dlp 原生支持，几乎覆盖所有主流平台）。
+- **YouTube** — 自动复用本地浏览器（Edge / Chrome）登录态，绕过机器人检测并拿到最高清单（公开视频也需登录态）。
 - **快手** — yt-dlp 原生不支持，由自带的 `kuaishou.py` 解析 web 直链；自动复用本地浏览器（Edge / Chrome）登录态过快控。
+- **最高清优先（默认）** — 所有平台默认取最高清晰度：抖音 / 小红书排除带水印地址取最高清，其余统一 `bestvideo+bestaudio` 合并最高清画面 + 音轨。
 - **抖音特判：无水印 + 链接归一化** — 默认排除带水印的 `download_addr`、优先选无水印直链；抖音搜索页（`?modal_id=`）、分享短链（`v.douyin.com`）、`/video/`、`/note/` 自动归一化。其他平台由 yt-dlp 原生解析，输出本身就是无水印直链。
 - **跨平台 & 零额外依赖** — macOS / Linux / Windows；除 `yt-dlp` / `ffmpeg` 外无额外依赖；兼容 macOS 自带的 bash 3.2（无需升级 bash）。
 
@@ -104,7 +106,7 @@ dl "https://www.bilibili.com/video/BV1GJ411x7h7"
 # TikTok
 dl "https://www.tiktok.com/@user/video/123456"
 
-# YouTube（公开视频免 cookie，含 Shorts）
+# YouTube（含 Shorts，自动复用浏览器登录态绕过风控并拿最高清）
 dl "https://youtube.com/shorts/kkyaouUEmaU"
 
 # X / Twitter
@@ -120,14 +122,14 @@ dl "https://www.kuaishou.com/short-video/3xk6y9abcde"
 |---|---|---|
 | 抖音 / 小红书 | ✅ 需要 | 自动读取本地已登录浏览器的登录态 |
 | 快手 | ✅ 需要（浏览器登录态自动读取） | 自带 `kuaishou.py` 解析 web 直链；无浏览器登录态时把 Cookie 写入 `~/.kuaishou_cookies.txt` |
-| B站 / TikTok | ❌ 不需要 | 免 cookie 直接下载 |
-| YouTube / X(Twitter) 等 | ❌ 不需要 | yt-dlp 原生支持，几乎覆盖所有主流平台 |
+| YouTube | ✅ 需要（浏览器登录态自动读取） | 绕过机器人检测并拿到最高清单；公开视频也需登录态 |
+| B站 / TikTok / X(Twitter) 等 | ❌ 不需要 | 免 cookie 直接下载（yt-dlp 原生支持） |
 
 > ⚠️ **暂不支持**：微信视频号、腾讯视频。前者是私协议 + 强登录态，后者是付费墙 DRM，短期内无法用 yt-dlp 透传解决。
 
 ## 关于 cookie（重要）
 
-抖音 / 小红书 / 快手需要登录态；B站 / TikTok / YouTube / X 不需要任何 cookie，直接下。
+抖音 / 小红书 / 快手 / YouTube 需要登录态；B站 / TikTok / X 不需要任何 cookie，直接下。
 
 抖音 / 小红书的 cookie 按以下优先级自动处理：
 

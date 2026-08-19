@@ -70,16 +70,19 @@ detect_browser() {
   return 1
 }
 
-# 抖音 / 小红书需要登录态；其余平台免 cookie
+# 平台分级：
+#  - 抖音 / 小红书：需要登录态，且需排除带水印的 download_addr
+#  - YouTube：需登录态绕过机器人检测并拿到高清单（强制 web 客户端，否则走 android vr 只剩 144p）
+#  - 其余（B站 / TikTok / X 等）：免 cookie，直接取最高清
 EXTRA=()
 case "$URL" in
   *douyin.com*|*v.douyin.com*|*xiaohongshu.com*|*xhslink.com*)
     if [[ -f "$CF" ]]; then
-      EXTRA=(--cookies "$CF" -f "best[format_id!^=download_addr]/best")
+      EXTRA=(--cookies "$CF")
     else
       B="$(detect_browser)" || true
       if [[ -n "$B" ]]; then
-        EXTRA=(--cookies-from-browser "$B" -f "best[format_id!^=download_addr]/best")
+        EXTRA=(--cookies-from-browser "$B")
       else
         echo "⚠️  抖音/小红书需要登录态：未找到浏览器，也无法读取 cookie 文件 $CF" >&2
         echo "    请在浏览器登录抖音/小红书后重试，或把 Netscape 格式 cookie 放到 $CF" >&2
@@ -87,10 +90,24 @@ case "$URL" in
       fi
     fi
     ;;
+  *youtube.com*|*youtu.be*)
+    B="$(detect_browser)" || true
+    if [[ -n "$B" ]]; then
+      EXTRA=(--cookies-from-browser "$B" --extractor-args "youtube:player_client=tv,web")
+    fi
+    ;;
 esac
+
+# 格式选择：抖音/小红书排除带水印地址取最高清；其余统一取最高清（video+audio 合并）
+if [[ "$URL" == *douyin.com* || "$URL" == *v.douyin.com* || "$URL" == *xiaohongshu.com* || "$URL" == *xhslink.com* ]]; then
+  FMT="best[format_id!^=download_addr]/best"
+else
+  FMT="bestvideo+bestaudio/best"
+fi
 
 if [[ ${#EXTRA[@]} -gt 0 ]]; then
   exec "$YTDLP" "${EXTRA[@]}" \
+    -f "$FMT" \
     --socket-timeout 30 \
     --no-check-certificates \
     --no-playlist \
@@ -98,6 +115,7 @@ if [[ ${#EXTRA[@]} -gt 0 ]]; then
     "$URL"
 else
   exec "$YTDLP" \
+    -f "$FMT" \
     --socket-timeout 30 \
     --no-check-certificates \
     --no-playlist \
