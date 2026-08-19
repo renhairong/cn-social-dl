@@ -16,6 +16,7 @@
 #       Chrome/Edge 在 macOS 上首次需 Keychain 授权弹窗）
 set -euo pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 URL="${1:?用法: dl <视频链接> [保存目录]}"
 OUT="${2:-$HOME/Downloads}"
 CF="${DOUYIN_COOKIE_FILE:-$HOME/.douyin_cookies.txt}"
@@ -27,6 +28,26 @@ mkdir -p "$OUT"
 if [[ "$URL" == *douyin.com* || "$URL" == *v.douyin.com* ]]; then
   ID="$(echo "$URL" | grep -oE '(modal_id=|/video/|/note/)[0-9]+' | grep -oE '[0-9]+' | head -1 || true)"
   [[ -n "$ID" ]] && URL="https://www.douyin.com/video/$ID"
+fi
+
+# 快手：yt-dlp 原生不支持，走自带的 kuaishou.py 解析直链后交给 yt-dlp 下载/合并
+if [[ "$URL" == *kuaishou.com* || "$URL" == *v.kuaishou.com* ]]; then
+  PY="$(command -v python3 || command -v python)"
+  MAP="$("$PY" "$SCRIPT_DIR/kuaishou.py" "$URL" 2>/tmp/kuaishou.err)" || {
+    echo "❌ 快手解析失败：" >&2
+    sed 's/^/    /' /tmp/kuaishou.err >&2
+    echo "    公开视频通常可免登录；若提示需登录态，请把浏览器里快手 Cookie" >&2
+    echo "    （Application → Cookies 复制为字符串）写入 ~/.kuaishou_cookies.txt 后重试。" >&2
+    exit 1
+  }
+  TITLE="$(printf '%s\n' "$MAP" | sed -n '1p')"
+  MEDIA="$(printf '%s\n' "$MAP" | sed -n '2p')"
+  exec "$YTDLP" \
+    --socket-timeout 30 \
+    --no-check-certificates \
+    --no-playlist \
+    -o "$OUT/${TITLE} [kuaishou].%(ext)s" \
+    "$MEDIA"
 fi
 
 # 探测本地已安装的浏览器（优先 Firefox，macOS 上不依赖 Keychain）

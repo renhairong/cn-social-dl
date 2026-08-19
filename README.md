@@ -3,12 +3,13 @@
 [English](README_EN.md)
 
 一个零配置、跨平台的通用视频下载器，基于 [yt-dlp](https://github.com/yt-dlp/yt-dlp)。
-一行命令下载抖音、小红书、B站、TikTok、YouTube、X(Twitter) 等平台的视频，**无水印优先**。
+一行命令下载抖音、小红书、B站、快手、TikTok、YouTube、X(Twitter) 等平台的视频，**无水印优先**。
 
 ## 特性
 
 - **抖音 / 小红书**：自动读取你本地**已登录浏览器**的登录态 cookie，**无需手动导出、无需第三方扩展**。
 - **B站 / TikTok / YouTube / X 等**：免 cookie，直接下载（基于 yt-dlp 原生支持，几乎覆盖所有主流平台）。
+- **快手**：yt-dlp 原生不支持，由自带的 `kuaishou.py` 解析 web 直链后下载。**公开视频免登录**；个别视频若返回空，把浏览器快手 Cookie 写入 `~/.kuaishou_cookies.txt` 即可。
 - **无水印**：抖音默认排除带水印的下载地址，优先选无水印直链。
 - **链接自适应**：抖音搜索页（`?modal_id=`）、分享短链（`v.douyin.com`）、`/video/`、`/note/` 都自动归一化，随手粘就行。
 - **跨平台**：macOS / Linux / Windows，自动探测本地浏览器；兼容 macOS 自带的 bash 3.2（无需升级 bash）。
@@ -61,11 +62,14 @@ bash dl.sh "https://youtube.com/shorts/kkyaouUEmaU"
 
 # X / Twitter
 bash dl.sh "https://x.com/username/status/1234567890/video/1"
+
+# 快手（公开视频免登录；短链 v.kuaishou.com 会自动跟随重定向）
+bash dl.sh "https://www.kuaishou.com/short-video/3xk6y9abcde"
 ```
 
 ## 关于 cookie（重要）
 
-只有**抖音 / 小红书**需要登录态；**B站 / TikTok 不需要任何 cookie**，直接下。
+只有**抖音 / 小红书**需要登录态；**B站 / TikTok / 快手（公开视频）不需要任何 cookie**，直接下。
 
 抖音 / 小红书的 cookie 获取按以下优先级自动处理：
 

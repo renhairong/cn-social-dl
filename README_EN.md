@@ -3,7 +3,7 @@
 [![CI](https://github.com/renhairong/cn-social-dl/actions/workflows/ci.yml/badge.svg)](https://github.com/renhairong/cn-social-dl/actions/workflows/ci.yml)
 
 A zero-config, cross-platform video downloader for Chinese social platforms, built on [yt-dlp](https://github.com/yt-dlp/yt-dlp).
-Download videos from Douyin, Xiaohongshu, Bilibili, TikTok, YouTube, X (Twitter) and more with **one command**, **watermark-free by default**.
+Download videos from Douyin, Xiaohongshu, Bilibili, Kuaishou, TikTok, YouTube, X (Twitter) and more with **one command**, **watermark-free by default**.
 
 [中文文档](README.md)
 
@@ -11,6 +11,7 @@ Download videos from Douyin, Xiaohongshu, Bilibili, TikTok, YouTube, X (Twitter)
 
 - **Douyin / Xiaohongshu**: automatically reads your **logged-in browser's** session cookies — no manual export, no third-party extensions.
 - **Bilibili / TikTok / YouTube / X** and more: download **without any cookies** (yt-dlp-native support covers nearly all major platforms).
+- **Kuaishou**: not supported by yt-dlp natively, so a bundled `kuaishou.py` resolves the web play URL first, then downloads it. **Public videos need no login**; if a video returns empty, drop your browser's Kuaishou cookies into `~/.kuaishou_cookies.txt`.
 - **Watermark-free**: for Douyin it skips the watermarked `download_addr` and picks the clean playback URL first.
 - **URL normalization**: Douyin search pages (`?modal_id=`), short links (`v.douyin.com`), `/video/`, `/note/` are all normalized automatically — just paste any link.
 - **Cross-platform**: macOS / Linux / Windows, with automatic browser detection. Compatible with the stock bash 3.2 shipped with macOS — no need to upgrade bash.
@@ -63,11 +64,14 @@ bash dl.sh "https://youtube.com/shorts/kkyaouUEmaU"
 
 # X / Twitter
 bash dl.sh "https://x.com/username/status/1234567890/video/1"
+
+# Kuaishou (public videos need no login; short links v.kuaishou.com are followed automatically)
+bash dl.sh "https://www.kuaishou.com/short-video/3xk6y9abcde"
 ```
 
 ## About cookies (important)
 
-Only **Douyin / Xiaohongshu** require a logged-in session. **Bilibili / TikTok need no cookies at all** — they just work.
+Only **Douyin / Xiaohongshu** require a logged-in session. **Bilibili / TikTok / Kuaishou (public videos) need no cookies at all** — they just work.
 
 For Douyin / Xiaohongshu, cookies are resolved automatically with this priority:
 

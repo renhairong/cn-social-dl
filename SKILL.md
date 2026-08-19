@@ -1,12 +1,12 @@
 ---
 name: video-downloader
-description: 通用视频下载器，支持抖音/小红书/B站/TikTok 等平台。抖音/小红书自动读取本地已登录浏览器 cookie（无需手动导出），B站/TikTok 免 cookie。基于 yt-dlp，无水印优先。
+description: 通用视频下载器，支持抖音/小红书/B站/快手/TikTok 等平台。抖音/小红书自动读取本地已登录浏览器 cookie（无需手动导出），B站/TikTok/快手（公开视频）免 cookie。基于 yt-dlp，无水印优先。快手由自带 kuaishou.py 解析 web 直链。
 license: MIT
 ---
 
 # video-downloader
 
-通用视频下载器，基于 [yt-dlp](https://github.com/yt-dlp/yt-dlp)，覆盖抖音 / 小红书 / B站 / TikTok 等主流平台。
+通用视频下载器，基于 [yt-dlp](https://github.com/yt-dlp/yt-dlp)，覆盖抖音 / 小红书 / B站 / 快手 / TikTok 等主流平台。
 
 ## 什么时候用
 用户要下载抖音、小红书、B站、TikTok 等平台的视频（尤其「无水印」「高清」）时调用本技能，运行 `dl.sh`。
@@ -30,6 +30,7 @@ bash dl.sh "视频链接" "/自定义/保存目录"
 | 平台 | 需要登录态？ | 说明 |
 |---|---|---|
 | B站 / TikTok / YouTube 等 | ❌ 不需要 | 免 cookie 直接下载 |
+| 快手（公开视频） | ❌ 不需要 | 由自带 `kuaishou.py` 解析 web 直链；个别视频若返回空，把浏览器快手 Cookie 写入 `~/.kuaishou_cookies.txt` |
 | 抖音 / 小红书 | ✅ 需要 | 自动读取本地已登录浏览器的登录态 |
 
 抖音 / 小红书的 cookie 获取（按优先级）：
