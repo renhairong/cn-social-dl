@@ -1,10 +1,10 @@
 # cn-social-dl
 
-> 一行命令，下载抖音、小红书、B站、快手、TikTok、YouTube、X 等平台的视频。**无水印优先 · 零配置 · 跨平台**。
+> 一行命令，下载抖音、小红书、B站、快手、TikTok、YouTube、Instagram、X 等平台的视频。**无水印优先 · 零配置 · 跨平台**。
 
 [![CI](https://github.com/renhairong/cn-social-dl/actions/workflows/ci.yml/badge.svg)](https://github.com/renhairong/cn-social-dl/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Platforms](https://img.shields.io/badge/platforms-Douyin%20%7C%20XHS%20%7C%20Bilibili%20%7C%20Kuaishou%20%7C%20YouTube%20%7C%20X-blue.svg)]()
+[![Platforms](https://img.shields.io/badge/platforms-Douyin%20%7C%20XHS%20%7C%20Bilibili%20%7C%20Kuaishou%20%7C%20YouTube%20%7C%20Instagram%20%7C%20X-blue.svg)]()
 
 [English](README_EN.md)
 
@@ -29,7 +29,7 @@
 
 - **抖音 / 小红书** — 自动读取本地**已登录浏览器**的登录态 cookie，**无需手动导出、无需第三方扩展**。
 - **B站 / TikTok / X 等** — 免 cookie，直接下载（基于 yt-dlp 原生支持，几乎覆盖所有主流平台）。
-- **YouTube** — 自动复用本地浏览器（Edge / Chrome）登录态，绕过机器人检测并拿到最高清单（公开视频也需登录态）。
+- **YouTube / Instagram** — 自动复用本地浏览器（Edge / Chrome）登录态，绕过机器人检测 / 访问限制并拿到最高清单；Instagram 的 `/reel/` 与 `/reels/` 链接均支持（均须登录态）。
 - **快手** — yt-dlp 原生不支持，由自带的 `kuaishou.py` 解析 web 直链；自动复用本地浏览器（Edge / Chrome）登录态过快控。
 - **最高清优先（默认）** — 所有平台默认取最高清晰度：抖音 / 小红书排除带水印地址取最高清，其余统一 `bestvideo+bestaudio` 合并最高清画面 + 音轨。
 - **抖音特判：无水印 + 链接归一化** — 默认排除带水印的 `download_addr`、优先选无水印直链；抖音搜索页（`?modal_id=`）、分享短链（`v.douyin.com`）、`/video/`、`/note/` 自动归一化。其他平台由 yt-dlp 原生解析，输出本身就是无水印直链。
@@ -109,6 +109,9 @@ dl "https://www.tiktok.com/@user/video/123456"
 # YouTube（含 Shorts，自动复用浏览器登录态绕过风控并拿最高清）
 dl "https://youtube.com/shorts/kkyaouUEmaU"
 
+# Instagram（Reels，自动复用浏览器登录态绕过访问限制）
+dl "https://www.instagram.com/reel/ABCD1234"
+
 # X / Twitter
 dl "https://x.com/username/status/1234567890/video/1"
 
@@ -123,13 +126,14 @@ dl "https://www.kuaishou.com/short-video/3xk6y9abcde"
 | 抖音 / 小红书 | ✅ 需要 | 自动读取本地已登录浏览器的登录态 |
 | 快手 | ✅ 需要（浏览器登录态自动读取） | 自带 `kuaishou.py` 解析 web 直链；无浏览器登录态时把 Cookie 写入 `~/.kuaishou_cookies.txt` |
 | YouTube | ✅ 需要（浏览器登录态自动读取） | 绕过机器人检测并拿到最高清单；公开视频也需登录态 |
+| Instagram（Reels 等） | ✅ 需要（浏览器登录态自动读取） | 复用本地浏览器登录态绕过访问限制；`/reel/` 与 `/reels/` 链接均支持 |
 | B站 / TikTok / X(Twitter) 等 | ❌ 不需要 | 免 cookie 直接下载（yt-dlp 原生支持） |
 
 > ⚠️ **暂不支持**：微信视频号、腾讯视频。前者是私协议 + 强登录态，后者是付费墙 DRM，短期内无法用 yt-dlp 透传解决。
 
 ## 关于 cookie（重要）
 
-抖音 / 小红书 / 快手 / YouTube 需要登录态；B站 / TikTok / X 不需要任何 cookie，直接下。
+抖音 / 小红书 / 快手 / YouTube / Instagram 需要登录态；B站 / TikTok / X 不需要任何 cookie，直接下。
 
 抖音 / 小红书的 cookie 按以下优先级自动处理：
 

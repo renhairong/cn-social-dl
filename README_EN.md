@@ -1,10 +1,10 @@
 # cn-social-dl
 
-> Download videos from Douyin, Xiaohongshu, Bilibili, Kuaishou, TikTok, YouTube, X and more with **one command**. **Watermark-free by default · Zero-config · Cross-platform**.
+> Download videos from Douyin, Xiaohongshu, Bilibili, Kuaishou, TikTok, YouTube, Instagram, X and more with **one command**. **Watermark-free by default · Zero-config · Cross-platform**.
 
 [![CI](https://github.com/renhairong/cn-social-dl/actions/workflows/ci.yml/badge.svg)](https://github.com/renhairong/cn-social-dl/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Platforms](https://img.shields.io/badge/platforms-Douyin%20%7C%20XHS%20%7C%20Bilibili%20%7C%20Kuaishou%20%7C%20YouTube%20%7C%20X-blue.svg)]()
+[![Platforms](https://img.shields.io/badge/platforms-Douyin%20%7C%20XHS%20%7C%20Bilibili%20%7C%20Kuaishou%20%7C%20YouTube%20%7C%20Instagram%20%7C%20X-blue.svg)]()
 
 [中文文档](README.md)
 
@@ -29,7 +29,7 @@
 
 - **Douyin / Xiaohongshu** — automatically reads your **logged-in browser's** session cookies; no manual export, no third-party extensions.
 - **Bilibili / TikTok / X** and more — download **without any cookies** (yt-dlp-native support covers nearly all major platforms).
-- **YouTube** — reuses your logged-in browser (Edge / Chrome) session to bypass the bot check and get the highest-quality streams (public videos also need a session now).
+- **YouTube / Instagram** — reuses your logged-in browser (Edge / Chrome) session to bypass the bot check / access restrictions and get the highest-quality streams; Instagram supports both `/reel/` and `/reels/` links (both need a session).
 - **Kuaishou** — not supported by yt-dlp natively, so the bundled `kuaishou.py` resolves the web play URL first; it reuses your local browser's (Edge / Chrome) logged-in session to pass the anti-bot check.
 - **Best quality by default** — every platform downloads at the highest available resolution: Douyin / Xiaohongshu exclude the watermarked address and pick the best; everything else merges `bestvideo+bestaudio` for the sharpest picture + audio.
 - **Douyin extras: watermark-free + URL normalization** — skips the watermarked `download_addr` and prefers the clean play URL; normalizes search-page links (`?modal_id=`), short links (`v.douyin.com`), `/video/`, `/note/` automatically. Other platforms are parsed natively by yt-dlp, so they don't need these workarounds.
@@ -109,6 +109,9 @@ dl "https://www.tiktok.com/@user/video/123456"
 # YouTube (incl. Shorts — reuses browser session to bypass the bot check and grab the best quality)
 dl "https://youtube.com/shorts/kkyaouUEmaU"
 
+# Instagram (Reels — reuses browser session to bypass access restrictions)
+dl "https://www.instagram.com/reel/ABCD1234"
+
 # X / Twitter
 dl "https://x.com/username/status/1234567890/video/1"
 
@@ -129,7 +132,7 @@ dl "https://www.kuaishou.com/short-video/3xk6y9abcde"
 
 ## About cookies (important)
 
-Douyin / Xiaohongshu / Kuaishou / YouTube need a logged-in session; Bilibili / TikTok / X need no cookies at all — they just work.
+Douyin / Xiaohongshu / Kuaishou / YouTube / Instagram need a logged-in session; Bilibili / TikTok / X need no cookies at all — they just work.
 
 For Douyin / Xiaohongshu, cookies are resolved automatically with this priority:
 

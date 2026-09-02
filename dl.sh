@@ -96,6 +96,12 @@ case "$URL" in
       EXTRA=(--cookies-from-browser "$B" --extractor-args "youtube:player_client=tv,web")
     fi
     ;;
+  *instagram.com*)
+    B="$(detect_browser)" || true
+    if [[ -n "$B" ]]; then
+      EXTRA=(--cookies-from-browser "$B")
+    fi
+    ;;
 esac
 
 # 格式选择：抖音/小红书排除带水印地址取最高清；其余统一取最高清（video+audio 合并）
