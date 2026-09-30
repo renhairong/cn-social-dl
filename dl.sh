@@ -102,6 +102,13 @@ case "$URL" in
       EXTRA=(--cookies-from-browser "$B")
     fi
     ;;
+  *x.com*|*twitter.com*)
+    # X 视频是 HLS 多分片流。yt-dlp 原生下载器会写出 50+ 个散落分片临时文件
+    # (xxx.mp4.part-FragN)，累计触发 WorkBuddy safe-delete 的批量删除确认，
+    # 后台无确认即中断、导致音视频无法合并。改用 ffmpeg 下载器：
+    # ffmpeg 顺序写入单个输出文件，不产生散落分片，规避该拦截。
+    EXTRA=(--downloader ffmpeg)
+    ;;
 esac
 
 # 格式选择：抖音/小红书排除带水印地址取最高清；其余统一取最高清（video+audio 合并）

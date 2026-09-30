@@ -126,7 +126,8 @@ dl "https://www.kuaishou.com/short-video/3xk6y9abcde"
 | Douyin / Xiaohongshu | ✅ Yes | Reads your logged-in browser session automatically |
 | Kuaishou | ✅ Yes (browser session auto-detected) | Bundled `kuaishou.py` resolves the web URL; fall back to `~/.kuaishou_cookies.txt` if no browser session |
 | YouTube | ✅ Yes (browser session auto-detected) | Bypasses the bot check and gets the best quality — public videos need a session too |
-| Bilibili / TikTok / X (Twitter) etc. | ❌ No | Download without any cookies (yt-dlp-native) |
+| Bilibili / TikTok etc. | ❌ No | Download without any cookies (yt-dlp-native) |
+| X (Twitter) | ❌ No | No cookies; HLS multi-segment stream, uses ffmpeg downloader to avoid fragment-file blocking |
 
 > ⚠️ **Not supported yet**: WeChat Channels (视频号) and Tencent Video (腾讯视频). The former uses a private protocol with mandatory login; the latter sits behind a paid DRM wall — neither can be solved via yt-dlp pass-through in the near term.
 

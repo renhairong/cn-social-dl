@@ -29,7 +29,8 @@ bash dl.sh "视频链接" "/自定义/保存目录"
 ## 平台与 cookie 策略
 | 平台 | 需要登录态？ | 说明 |
 |---|---|---|
-| B站 / TikTok / X 等 | ❌ 不需要 | 免 cookie 直接下载 |
+| B站 / TikTok 等 | ❌ 不需要 | 免 cookie 直接下载 |
+| X(Twitter) | ❌ 不需要 | 免 cookie；HLS 多分片，自动走 ffmpeg 下载器规避分片拦截 |
 | 快手 | ✅ 需要（浏览器登录态自动读取） | 由自带 `kuaishou.py` 解析 web 直链；自动复用 Edge/Chrome 登录态过快控，无登录态时把 Cookie 写入 `~/.kuaishou_cookies.txt` |
 | 抖音 / 小红书 | ✅ 需要 | 自动读取本地已登录浏览器的登录态 |
 | YouTube | ✅ 需要（浏览器登录态自动读取） | 绕过机器人检测并拿到最高清单；公开视频也需登录态 |

@@ -127,7 +127,8 @@ dl "https://www.kuaishou.com/short-video/3xk6y9abcde"
 | 快手 | ✅ 需要（浏览器登录态自动读取） | 自带 `kuaishou.py` 解析 web 直链；无浏览器登录态时把 Cookie 写入 `~/.kuaishou_cookies.txt` |
 | YouTube | ✅ 需要（浏览器登录态自动读取） | 绕过机器人检测并拿到最高清单；公开视频也需登录态 |
 | Instagram（Reels 等） | ✅ 需要（浏览器登录态自动读取） | 复用本地浏览器登录态绕过访问限制；`/reel/` 与 `/reels/` 链接均支持 |
-| B站 / TikTok / X(Twitter) 等 | ❌ 不需要 | 免 cookie 直接下载（yt-dlp 原生支持） |
+| B站 / TikTok 等 | ❌ 不需要 | 免 cookie 直接下载（yt-dlp 原生支持） |
+| X(Twitter) | ❌ 不需要 | 免 cookie；HLS 多分片流，自动走 ffmpeg 下载器规避分片拦截 |
 
 > ⚠️ **暂不支持**：微信视频号、腾讯视频。前者是私协议 + 强登录态，后者是付费墙 DRM，短期内无法用 yt-dlp 透传解决。
 
